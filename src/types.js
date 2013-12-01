@@ -1,6 +1,8 @@
 /*global exports: true*/
 "use strict";
 
+var assert = require('assert');
+
 var Symbol = function (name) {
     this.type = "Symbol";
     this.name = name;
@@ -16,6 +18,27 @@ Symbol.prototype.equal = function (other) {
 };
 
 exports.Symbol = Symbol;
+
+var Environment = function () {
+    this.type = "Environment";
+    this.contents = {};
+    return this;
+};
+
+Environment.prototype.set = function (symbol, value) {
+    assert.ok(symbol instanceof Symbol, "First argument is not a Symbol!");
+    this[symbol.name] = value;
+};
+
+Environment.prototype.get = function (symbol) {
+    assert.ok(symbol instanceof Symbol, "First argument is not a Symbol!");
+
+    var value = this[symbol.name];
+    assert.notEqual(typeof value, "undefined", "Symbol is not defined.");
+    return value;
+};
+
+exports.Environment = Environment;
 
 // Q. How do you *reliably* tell if something is a JavaScript array?
 // A. Ha, ha, ha, ha, ha! Are you kidding?

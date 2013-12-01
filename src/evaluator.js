@@ -1,11 +1,28 @@
 /*global exports: true*/
 "use strict";
 
-var evaluate_self_evaluating = function (expr) {
+var assert	= require('assert');
+
+var is_array	= require('./types').is_array;
+var Symbol	= require('./types').Symbol;
+
+var evaluate_self_evaluating = function (expr, env) {
     return expr;
 };
 
-var evaluate = function (expr) {
+var evaluate_symbol = function (expr, env) {
+    return env.get(expr);
+};
+
+var evaluate_def = function (expr, env) {
+    assert.equal(expr.length, 3, "Wrong number of args to def.");
+    var name = expr[1],
+	value = expr[2];
+    env.set(name, value);
+    return expr;
+};
+
+var evaluate = function (expr, env) {
     if (
 	typeof expr === "number"
 	    ||
@@ -13,10 +30,20 @@ var evaluate = function (expr) {
 	    ||
 	    typeof expr === "string"
     ) {
-	return evaluate_self_evaluating(expr);
+	return evaluate_self_evaluating(expr, env);
     }
 
-    throw new Error("Cannot evaluate expression: " + expr);
+    if (expr instanceof Symbol) {
+	return evaluate_symbol(expr, env);
+    }
+
+    if (is_array(expr)) {
+	if (new Symbol("def").equal(expr[0])) {
+	    return evaluate_def(expr, env);
+	}
+    }
+
+    throw new Error("Cannot evaluate expression: '" + expr + "'");
 };
 
 exports.evaluate = evaluate;
