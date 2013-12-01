@@ -17,8 +17,8 @@ describe('self-evaluating', function () {
 	assert.deepEqual(evaluate("test", undefined), "test");
     });
     it('Evaluates booleans', function () {
-	assert.deepEqual(evaluate(true, undefined), true);
-	assert.deepEqual(evaluate(false, undefined), false);
+	assert.deepEqual(evaluate(parse("true"), undefined), true);
+	assert.deepEqual(evaluate(parse("false"), undefined), false);
     });
     it('Evaluates nil', function () {
 	assert.deepEqual(evaluate(parse("nil"), undefined), undefined);
@@ -35,6 +35,22 @@ describe('def', function () {
 	var env = new Environment();
 	evaluate(parse("(def a (+ 1 2))"), env);
 	assert.deepEqual(evaluate(parse("a"), env), 3);
+    });
+});
+
+describe('If statements.', function () {
+    it('Handles a simple if.', function () {
+	var env = new Environment();
+	assert.deepEqual(evaluate(parse("(if true 1 2)"), env), 1);
+	assert.deepEqual(evaluate(parse("(if 3 1 2)"), env), 1);
+	assert.deepEqual(evaluate(parse("(if false 1 2)"), env), 2);
+	assert.deepEqual(evaluate(parse("(if nil 1 2)"), env), 2);
+    });
+
+    it('Handles an expression if.', function () {
+	var env = new Environment();
+	assert.deepEqual(evaluate(parse("(if (+ 1 2) (* 3 4) (* 5 6))"), env), 12);
+	assert.deepEqual(evaluate(parse("(if false (* 3 4) (* 5 6))"), env), 30);
     });
 });
 

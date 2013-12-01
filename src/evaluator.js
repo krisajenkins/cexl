@@ -26,6 +26,34 @@ var evaluate_def = function (expr, env) {
     return expr;
 };
 
+var evaluate_if = function (expr, env) {
+    var test_expr, then_expr, else_expr, test_value;
+
+    if (
+	expr.length !== 3
+	    &&
+	    expr.length !== 4
+    ) {
+	throw new Error("Wrong number of args to if.");
+    }
+
+    test_expr = expr[1];
+    then_expr = expr[2];
+    else_expr = expr[3] || new Symbol("nil");
+
+    test_value = evaluate(test_expr, env);
+
+    if (
+	test_value !== false
+	    &&
+	    typeof test_value !== 'undefined'
+    ) {
+	return evaluate(then_expr, env);
+    }
+
+    return evaluate(else_expr, env);
+};
+
 var evaluate_function = function (expr, env) {
     var evaluated_subexprs, f, args;
 
@@ -65,6 +93,10 @@ evaluate = function (expr, env) {
     if (is_array(expr)) {
 	if (new Symbol("def").equal(expr[0])) {
 	    return evaluate_def(expr, env);
+	}
+
+	if (new Symbol("if").equal(expr[0])) {
+	    return evaluate_if(expr, env);
 	}
 
 	return evaluate_function(expr, env);
