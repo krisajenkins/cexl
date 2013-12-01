@@ -9,7 +9,10 @@ module.exports = function (grunt) {
 	    build: {
 		src: "src/reader.peg",
 		dest: "build/reader.js",
-		options: { exportVar: "exports.parser" }
+		options: {
+		    exportVar: "exports.parser",
+		    trackLineAndColumn: true
+		}
 	    }
 	},
 	cafemocha: {
