@@ -59,5 +59,9 @@ describe('Function invocation.', function () {
 	assert.deepEqual(evaluate(parse("(+ 1 2)"), env), 3);
 	assert.deepEqual(evaluate(parse("(* 1 2)"), env), 2);
     });
+
+    it('Handles nested primitives.', function () {
+	var env = new Environment();
+	assert.deepEqual(evaluate(parse("(+ 1 (* 2 3))"), env), 7);
     });
 });
