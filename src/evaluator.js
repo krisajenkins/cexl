@@ -23,24 +23,22 @@ var evaluate_def = function (expr, env) {
 };
 
 var evaluate_function = function (expr, env) {
-    var function_name, function_arguments, f, evaluated_arguments;
+    var evaluated_subexprs, f, args;
 
-    function_name = expr[0];
-    function_arguments = expr.slice(1);
-
-    f = env.get(function_name);
-
-    if (typeof f !== 'function') {
-	throw new Error("Not a function: " + function_name);
-    }
-
-    evaluated_arguments = function_arguments.map(
+    evaluated_subexprs = expr.map(
 	function (subexpr) {
 	    return evaluate(subexpr, env);
 	}
     );
 
-    return f.apply(undefined, evaluated_arguments);
+    f = evaluated_subexprs[0];
+    args = evaluated_subexprs.slice(1);
+
+    if (typeof f !== 'function') {
+	throw new Error("Not a function.");
+    }
+
+    return f.apply(undefined, args);
 };
 
 var evaluate = function (expr, env) {
