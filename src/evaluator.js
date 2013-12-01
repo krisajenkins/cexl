@@ -4,6 +4,8 @@
 var is_array	= require('./types').is_array;
 var Symbol	= require('./types').Symbol;
 
+var evaluate;
+
 var evaluate_self_evaluating = function (expr, env) {
     return expr;
 };
@@ -18,7 +20,8 @@ var evaluate_def = function (expr, env) {
     }
 
     var name = expr[1],
-	value = expr[2];
+	value = evaluate(expr[2], env);
+
     env.set(name, value);
     return expr;
 };
@@ -42,7 +45,7 @@ var evaluate_function = function (expr, env) {
     return f.apply(undefined, args);
 };
 
-var evaluate = function (expr, env) {
+evaluate = function (expr, env) {
     if (
 	typeof expr === "number"
 	    ||

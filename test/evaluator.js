@@ -31,6 +31,12 @@ describe('def', function () {
 	evaluate(parse("(def a 5)"), env);
 	assert.deepEqual(evaluate(parse("a"), env), 5);
     });
+    it('Handles an expression def', function () {
+	var env = new Environment();
+	evaluate(parse("(def a (+ 1 2))"), env);
+	assert.deepEqual(evaluate(parse("a"), env), 3);
+    });
+});
 
 describe('Function invocation.', function () {
     it('Throws a function-not-found.', function () {
