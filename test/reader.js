@@ -13,4 +13,10 @@ describe('reader', function () {
 		assert.deepEqual(parse("true"), true);
 		assert.deepEqual(parse("false"), false);
 	});
+	it('Strings', function () {
+		assert.deepEqual(parse('""'), "");
+		assert.deepEqual(parse('"test"'), "test");
+		assert.deepEqual(parse('"test(some)thing"'), 'test(some)thing');
+		assert.deepEqual(parse('"test[some]thing"'), 'test[some]thing');
+	});
 });

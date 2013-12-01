@@ -1,6 +1,6 @@
 expr = atom
 
-atom = integer / boolean
+atom = integer / boolean / string
 
 integer "integer"
   = digits:('-'? [0-9]+) { return parseFloat(digits.join(""), 10); }
@@ -9,3 +9,7 @@ integer "integer"
 boolean "boolean"
   = "true" { return true; }
   / "false" { return false; }
+
+  
+string "string"
+  = '"' content:[^"]* '"' { return content.join(""); }
