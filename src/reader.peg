@@ -1,8 +1,11 @@
 expr = atom
 
-atom = integer
+atom = integer / boolean
 
 integer "integer"
-  = digits:('-'? [0-9]+) {
-    return parseFloat(digits.join(""), 10);
-  }
+  = digits:('-'? [0-9]+) { return parseFloat(digits.join(""), 10); }
+
+  
+boolean "boolean"
+  = "true" { return true; }
+  / "false" { return false; }
