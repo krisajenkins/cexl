@@ -1,3 +1,4 @@
+/*global exports: true*/
 "use strict";
 
 var Symbol = function (name) {
