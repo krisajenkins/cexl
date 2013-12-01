@@ -7,6 +7,10 @@ var Symbol = function (name) {
     return this;
 };
 
+Symbol.prototype.toString = function () {
+    return this.name;
+};
+
 Symbol.prototype.equal = function (other) {
     return ((this.type === other.type) && (this.name === other.name));
 };
