@@ -8,10 +8,10 @@ var evaluate_self_evaluating = function (expr) {
 var evaluate = function (expr) {
     if (
 	typeof expr === "number"
-	||
-	typeof expr === "boolean"
-	||
-	typeof expr === "string"
+	    ||
+	    typeof expr === "boolean"
+	    ||
+	    typeof expr === "string"
     ) {
 	return evaluate_self_evaluating(expr);
     }
