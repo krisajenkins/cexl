@@ -54,7 +54,7 @@ var evaluate_if = function (expr, env) {
     return evaluate(else_expr, env);
 };
 
-var evaluate_function = function (expr, env) {
+var apply_function = function (expr, env) {
     var evaluated_subexprs, f, args;
 
     evaluated_subexprs = expr.map(
@@ -99,7 +99,7 @@ evaluate = function (expr, env) {
 	    return evaluate_if(expr, env);
 	}
 
-	return evaluate_function(expr, env);
+	return apply_function(expr, env);
     }
 
     throw new Error("Cannot evaluate expression: '" + expr + "'");
