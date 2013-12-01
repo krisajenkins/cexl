@@ -2,6 +2,8 @@
   var Symbol = require('../src/types').Symbol;
 }
 
+start = expr
+
 expr = whitespace* expr:( atom / list ) whitespace* { return expr; }
 
 whitespace = ' ' / '	'
