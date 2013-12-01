@@ -9,23 +9,24 @@ var Symbol	= require('../src/types').Symbol;
 var Environment = require('../src/types').Environment;
 
 describe('self-evaluating', function () {
-    it('Numbers', function () {
+    it('Evaluates numbers', function () {
 	assert.deepEqual(evaluate(5, undefined), 5);
+	assert.deepEqual(evaluate(-9, undefined), -9);
     });
-    it('Strings', function () {
+    it('Evaluates strings', function () {
 	assert.deepEqual(evaluate("test", undefined), "test");
     });
-    it('Boolean', function () {
+    it('Evaluates booleans', function () {
 	assert.deepEqual(evaluate(true, undefined), true);
 	assert.deepEqual(evaluate(false, undefined), false);
     });
-    it('nil', function () {
+    it('Evaluates nil', function () {
 	assert.deepEqual(evaluate(parse("nil"), undefined), undefined);
     });
 });
 
 describe('def', function () {
-    it('Simple def', function () {
+    it('Handles a simple def', function () {
 	var env = new Environment();
 	evaluate(parse("(def a 5)"), env);
 	assert.deepEqual(evaluate(parse("a"), env), 5);
