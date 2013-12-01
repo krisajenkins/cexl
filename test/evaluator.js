@@ -54,8 +54,10 @@ describe('Function invocation.', function () {
 	);
     });
 
-    it('Handles simple addition.', function () {
+    it('Handles simple primitives.', function () {
 	var env = new Environment();
 	assert.deepEqual(evaluate(parse("(+ 1 2)"), env), 3);
+	assert.deepEqual(evaluate(parse("(* 1 2)"), env), 2);
+    });
     });
 });

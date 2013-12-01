@@ -30,6 +30,15 @@ var Environment = function () {
 		},
 		0
 	    );
+	},
+	'*': function () {
+	    var args = Array.prototype.slice.call(arguments, 0);
+	    return args.reduce(
+		function (previous_value, current_value){
+		    return previous_value * current_value;
+		},
+		1
+	    );
 	}
     };
 
