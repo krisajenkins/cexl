@@ -1,6 +1,10 @@
+{
+  var Symbol = require('../src/types').Symbol;
+}
+
 expr = atom
 
-atom = integer / boolean / string
+atom = integer / boolean / string / symbol
 
 integer "integer"
   = digits:('-'? [0-9]+) { return parseFloat(digits.join(""), 10); }
@@ -13,3 +17,6 @@ boolean "boolean"
   
 string "string"
   = '"' content:[^"]* '"' { return content.join(""); }
+
+symbol "symbol"
+  = chars:[^\w]* { return new Symbol(chars.join("")); }
