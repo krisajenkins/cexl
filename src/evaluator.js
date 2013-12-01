@@ -29,6 +29,8 @@ var evaluate = function (expr, env) {
 	    typeof expr === "boolean"
 	    ||
 	    typeof expr === "string"
+	    ||
+	    typeof expr === "undefined"
     ) {
 	return evaluate_self_evaluating(expr, env);
     }

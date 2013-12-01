@@ -8,7 +8,7 @@ expr = whitespace* expr:( atom / list ) whitespace* { return expr; }
 
 whitespace = ' ' / '	'
 
-atom = integer / boolean / string / symbol
+atom = integer / boolean / string / nil / symbol
 
 integer "integer"
   = digits:('-'? [0-9]+) { return parseFloat(digits.join(""), 10); }
@@ -16,6 +16,9 @@ integer "integer"
 boolean "boolean"
   = "true" { return true; }
   / "false" { return false; }
+
+nil "nil"
+  = "nil" { return void(0); }
 
 string "string"
   = '"' content:[^"]* '"' { return content.join(""); }

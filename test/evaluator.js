@@ -19,6 +19,9 @@ describe('self-evaluating', function () {
 	assert.deepEqual(evaluate(true, undefined), true);
 	assert.deepEqual(evaluate(false, undefined), false);
     });
+    it('nil', function () {
+	assert.deepEqual(evaluate(parse("nil"), undefined), undefined);
+    });
 });
 
 describe('def', function () {

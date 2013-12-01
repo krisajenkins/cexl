@@ -14,6 +14,9 @@ describe('reader', function () {
 	assert.deepEqual(parse("true"), true);
 	assert.deepEqual(parse("false"), false);
     });
+    it('Nil', function () {
+	assert.deepEqual(parse("nil"), void(0));
+    });
     it('Strings', function () {
 	assert.deepEqual(parse('""'), "");
 	assert.deepEqual(parse('"test"'), "test");
