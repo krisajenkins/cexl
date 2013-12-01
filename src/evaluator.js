@@ -22,6 +22,17 @@ var evaluate_def = function (expr, env) {
     return expr;
 };
 
+var evaluate_function = function (expr, env) {
+    var function_name = expr[0],
+	function_arguments = expr.slice(1),
+	f = env.get(function_name);
+    if (typeof f !== 'function') {
+	throw new Error("Not a function: " + function_name);
+    }
+
+    return f.apply(undefined, function_arguments);
+};
+
 var evaluate = function (expr, env) {
     if (
 	typeof expr === "number"
@@ -43,6 +54,8 @@ var evaluate = function (expr, env) {
 	if (new Symbol("def").equal(expr[0])) {
 	    return evaluate_def(expr, env);
 	}
+
+	return evaluate_function(expr, env);
     }
 
     throw new Error("Cannot evaluate expression: '" + expr + "'");

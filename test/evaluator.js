@@ -30,4 +30,31 @@ describe('def', function () {
 	evaluate(parse("(def a 5)"), env);
 	assert.deepEqual(evaluate(parse("a"), env), 5);
     });
+
+describe('Function invocation.', function () {
+    it('Throws a function-not-found.', function () {
+	assert.throws(
+	    function () {
+		var env = new Environment();
+		evaluate(parse("(foo 1 2)"), env);
+	    },
+		/not.*defined/
+	);
+    });
+
+    it('Throws not-a-function', function () {
+	assert.throws(
+	    function () {
+		var env = new Environment();
+		evaluate(parse("(def foo 1)"), env);
+		evaluate(parse("(foo 1 2)"), env);
+	    },
+		/not.*function/i
+	);
+    });
+
+    it('Handles simple addition.', function () {
+	var env = new Environment();
+	assert.deepEqual(evaluate(parse("(+ 1 2)"), env), 3);
+    });
 });

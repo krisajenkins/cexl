@@ -21,19 +21,30 @@ exports.Symbol = Symbol;
 
 var Environment = function () {
     this.type = "Environment";
-    this.contents = {};
+    this.contents = {
+	'+': function () {
+	    var args = Array.prototype.slice.call(arguments, 0);
+	    return args.reduce(
+		function (previous_value, current_value){
+		    return previous_value + current_value;
+		},
+		0
+	    );
+	}
+    };
+
     return this;
 };
 
 Environment.prototype.set = function (symbol, value) {
     assert.ok(symbol instanceof Symbol, "First argument is not a Symbol!");
-    this[symbol.name] = value;
+    this.contents[symbol.name] = value;
 };
 
 Environment.prototype.get = function (symbol) {
     assert.ok(symbol instanceof Symbol, "First argument is not a Symbol!");
 
-    var value = this[symbol.name];
+    var value = this.contents[symbol.name];
     assert.notEqual(typeof value, "undefined", "Symbol is not defined.");
     return value;
 };
