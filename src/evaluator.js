@@ -1,8 +1,6 @@
 /*global exports: true*/
 "use strict";
 
-var assert	= require('assert');
-
 var is_array	= require('./types').is_array;
 var Symbol	= require('./types').Symbol;
 
@@ -15,7 +13,10 @@ var evaluate_symbol = function (expr, env) {
 };
 
 var evaluate_def = function (expr, env) {
-    assert.equal(expr.length, 3, "Wrong number of args to def.");
+    if (expr.length !== 3) {
+	throw new Error("Wrong number of args to def.");
+    }
+
     var name = expr[1],
 	value = expr[2];
     env.set(name, value);
