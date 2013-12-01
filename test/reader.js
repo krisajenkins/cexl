@@ -1,9 +1,9 @@
 /*global describe: true, it: true */
 "use strict";
 
-var assert = require('assert');
-var parse = require('../build/reader').parser.parse;
-var Symbol = require('../src/types').Symbol;
+var assert	= require('assert');
+var parse	= require('../build/reader').parser.parse;
+var Symbol	= require('../src/types').Symbol;
 
 describe('reader', function () {
     it('Numbers', function () {
