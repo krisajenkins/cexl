@@ -2,21 +2,24 @@
   var Symbol = require('../src/types').Symbol;
 }
 
-expr = atom
+expr = whitespace* expr:( atom / list ) whitespace* { return expr; }
+
+whitespace = ' ' / '	'
 
 atom = integer / boolean / string / symbol
 
 integer "integer"
   = digits:('-'? [0-9]+) { return parseFloat(digits.join(""), 10); }
-
   
 boolean "boolean"
   = "true" { return true; }
   / "false" { return false; }
 
-  
 string "string"
   = '"' content:[^"]* '"' { return content.join(""); }
 
 symbol "symbol"
-  = chars:[^\w]* { return new Symbol(chars.join("")); }
+  = chars:[^ ()]+ { return new Symbol(chars.join("")); }
+  
+list "list"
+  = '(' exprs:expr* ')' { return exprs; }
