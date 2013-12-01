@@ -1,0 +1,8 @@
+expr = atom
+
+atom = integer
+
+integer "integer"
+  = digits:('-'? [0-9]+) {
+    return parseFloat(digits.join(""), 10);
+  }
