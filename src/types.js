@@ -52,7 +52,7 @@ Environment.prototype.get = function (symbol) {
 	return this.parent.get(symbol);
     }
 
-    throw new Error("Symbol is not defined.");
+    throw new Error(symbol.toString() + " is not defined.");
 };
 
 Environment.prototype.extend = function () {
