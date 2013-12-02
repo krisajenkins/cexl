@@ -45,4 +45,8 @@ describe('reader', function () {
 	    [1, [new Symbol("a"), 2, new Symbol("b")], 3, new Symbol("c")]
 	);
     });
+    it('Whitespace', function () {
+	assert.deepEqual(parse(" ( 1	 \n2 ) "), [1, 2]);
+	assert.deepEqual(parse("5\n"), 5);
+    });
 });
