@@ -8,7 +8,7 @@ var Symbol	= require('../src/types').Symbol;
 describe('reader', function () {
     it('Numbers', function () {
 	assert.deepEqual(parse("2"), 2);
-	assert.deepEqual(parse("-9"), -9);
+	assert.deepEqual(parse("-19"), -19);
     });
     it('Boolean', function () {
 	assert.deepEqual(parse("true"), true);
@@ -37,8 +37,8 @@ describe('reader', function () {
 	    [new Symbol("a")]
 	);
 	assert.deepEqual(
-	    parse("(1 a 2 b)"),
-	    [1, new Symbol("a"), 2, new Symbol("b")]
+	    parse("(1 a 20 b)"),
+	    [1, new Symbol("a"), 20, new Symbol("b")]
 	);
 	assert.deepEqual(
 	    parse("(1 (a 2 b) 3 c)"),
