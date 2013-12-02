@@ -18,11 +18,11 @@ integer "integer"
  }
   
 boolean "boolean"
-  = "true" { return true; }
-  / "false" { return false; }
+  = "true" { return new Symbol('true'); }
+  / "false" { return new Symbol('false'); }
 
 nil "nil"
-  = "nil" { return void(0); }
+  = "nil" { return new Symbol('nil'); }
 
 string "string"
   = '"' content:[^"]* '"' { return content.join(""); }

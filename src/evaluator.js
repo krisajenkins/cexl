@@ -3,6 +3,7 @@
 
 var is_array	= require('./types').is_array;
 var Symbol	= require('./types').Symbol;
+var Lambda	= require('./types').Lambda;
 
 var evaluate;
 
@@ -44,9 +45,9 @@ var evaluate_if = function (expr, env) {
     test_value = evaluate(test_expr, env);
 
     if (
-	test_value !== false
+	! new Symbol('false').equal(test_value)
 	    &&
-	    typeof test_value !== 'undefined'
+	    ! new Symbol('nil').equal(test_value)
     ) {
 	return evaluate(then_expr, env);
     }
@@ -54,8 +55,21 @@ var evaluate_if = function (expr, env) {
     return evaluate(else_expr, env);
 };
 
+var evaluate_fn = function (expr, env) {
+    var signature, body;
+
+    if (expr.length !== 3) {
+	throw new Error("Wrong number of args to fn.");
+    }
+
+    signature = expr[1];
+    body = expr[2];
+
+    return new Lambda(signature, body);
+};
+
 var apply_function = function (expr, env) {
-    var evaluated_subexprs, f, args;
+    var evaluated_subexprs, f, args, subenv, i;
 
     evaluated_subexprs = expr.map(
 	function (subexpr) {
@@ -66,11 +80,27 @@ var apply_function = function (expr, env) {
     f = evaluated_subexprs[0];
     args = evaluated_subexprs.slice(1);
 
-    if (typeof f !== 'function') {
-	throw new Error("Not a function.");
+    if (f instanceof Lambda) {
+	if (f.signature.length !== args.length) {
+	    throw new Error("Incorrect number of arguments.");
+	}
+
+	subenv = env.extend();
+	for (i = 0; i < f.signature.length; i++ ) {
+	    subenv.set(
+		f.signature[i],
+		args[i]
+	    );
+	}
+
+	return evaluate(f.body, subenv);
     }
 
-    return f.apply(undefined, args);
+    if (typeof f === 'function') {
+	return f.apply(undefined, args);
+    }
+
+    throw new Error("Not a function.");
 };
 
 evaluate = function (expr, env) {
@@ -80,8 +110,6 @@ evaluate = function (expr, env) {
 	    typeof expr === "boolean"
 	    ||
 	    typeof expr === "string"
-	    ||
-	    typeof expr === "undefined"
     ) {
 	return evaluate_self_evaluating(expr, env);
     }
@@ -99,6 +127,10 @@ evaluate = function (expr, env) {
 	    return evaluate_if(expr, env);
 	}
 
+	if (new Symbol("fn").equal(expr[0])) {
+	    return evaluate_fn(expr, env);
+	}
+
 	return apply_function(expr, env);
     }
 
@@ -106,5 +138,3 @@ evaluate = function (expr, env) {
 };
 
 exports.evaluate = evaluate;
-
-

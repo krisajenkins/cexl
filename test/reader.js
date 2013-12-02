@@ -11,11 +11,11 @@ describe('reader', function () {
 	assert.deepEqual(parse("-19"), -19);
     });
     it('Boolean', function () {
-	assert.deepEqual(parse("true"), true);
-	assert.deepEqual(parse("false"), false);
+	assert.deepEqual(parse("true"), new Symbol('true'));
+	assert.deepEqual(parse("false"), new Symbol('false'));
     });
     it('Nil', function () {
-	assert.deepEqual(parse("nil"), void(0));
+	assert.deepEqual(parse("nil"), new Symbol('nil'));
     });
     it('Strings', function () {
 	assert.deepEqual(parse('""'), "");
