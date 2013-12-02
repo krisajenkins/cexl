@@ -131,7 +131,6 @@ describe('Function invocation.', function () {
     });
 });
 
-
 describe('nil handling', function () {
     it('Allows us to alias nil', function () {
 	var env = make_root_environment();

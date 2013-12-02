@@ -66,9 +66,10 @@ exports.Environment = Environment;
 var make_root_environment = function () {
     var root = new Environment();
 
-    root.set(new Symbol('nil'), new Symbol('nil'));
-    root.set(new Symbol('true'), new Symbol('true'));
-    root.set(new Symbol('false'), new Symbol('false'));
+    root.set(new Symbol('nil'),		 new Symbol('nil'));
+    root.set(new Symbol('true'),	 new Symbol('true'));
+    root.set(new Symbol('false'),	 new Symbol('false'));
+
     root.set(new Symbol('+'), function () {
 	var args = Array.prototype.slice.call(arguments, 0);
 	return args.reduce(
