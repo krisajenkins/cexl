@@ -56,7 +56,7 @@ var evaluate_if = function (expr, env) {
 };
 
 var evaluate_fn = function (expr, env) {
-    var signature, body;
+    var signature, body, local_env;
 
     if (expr.length !== 3) {
 	throw new Error("Wrong number of args to fn.");
@@ -64,8 +64,9 @@ var evaluate_fn = function (expr, env) {
 
     signature = expr[1];
     body = expr[2];
+    local_env = env.extend();
 
-    return new Lambda(signature, body);
+    return new Lambda(signature, body, local_env);
 };
 
 var apply_function = function (expr, env) {
@@ -85,7 +86,7 @@ var apply_function = function (expr, env) {
 	    throw new Error("Incorrect number of arguments.");
 	}
 
-	subenv = env.extend();
+	subenv = f.env.extend();
 	for (i = 0; i < f.signature.length; i++ ) {
 	    subenv.set(
 		f.signature[i],

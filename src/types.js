@@ -19,10 +19,11 @@ Symbol.prototype.equal = function (other) {
 
 exports.Symbol = Symbol;
 
-var Lambda = function (signature, body) {
+var Lambda = function (signature, body, env) {
     this.type = "Lambda";
     this.signature = signature;
     this.body = body;
+    this.env = env;
     return this;
 };
 

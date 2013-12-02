@@ -117,6 +117,18 @@ describe('Function invocation.', function () {
 	evaluate(parse("(def sum (fn (x y) (+ x y)))"), env);
 	assert.deepEqual(evaluate(parse("(sum 4 10)"), env), 14);
     });
+
+    it('Handles higher-order function inputs', function () {
+	var env = make_root_environment();
+	assert.deepEqual(evaluate(parse("((fn (f) (f 1)) (fn (x) (+ 5 x)))"), env), 6);
+    });
+
+    it('Handles lexically-scoped higher-order functions', function () {
+	var env = make_root_environment();
+	evaluate(parse("(def closure (fn (x) (fn (y) (+ x y))))"), env);
+	evaluate(parse("(def inc (closure 1))"), env);
+	assert.deepEqual(evaluate(parse("(inc 4)"), env), 5);
+    });
 });
 
 
