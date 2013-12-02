@@ -2,7 +2,7 @@
   "name": "bruce",
   "version": "0.0.0",
   "description": "Demo Lisp for Clojure Ex 2013",
-  "main": "src/bruce.js",
+  "main": "src/repl.js",
   "directories": {
     "test": "test"
   },
