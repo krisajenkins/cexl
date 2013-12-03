@@ -5,7 +5,7 @@ var repl = require('repl');
 
 var parse	= require('./reader').parser.parse;
 var evaluate	= require('./evaluator').evaluate;
-var make_root_environment = require('./types').make_root_environment;
+var make_root_environment = require('./stdlib').make_root_environment;
 
 // TODO We can't yet handle multiline inputs.
 // Node passes the first line immediately when we press return.
