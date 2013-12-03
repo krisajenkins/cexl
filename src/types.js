@@ -4,33 +4,34 @@
 var assert = require('assert');
 
 var Symbol = function (name) {
-    this.type = "Symbol";
     this.name = name;
     return this;
 };
 
 Symbol.prototype.toString = function () {
-    return this.name;
+    return "[Symbol { name: " + this.name + " }]";
 };
 
 Symbol.prototype.equal = function (other) {
-    return ((this.type === other.type) && (this.name === other.name));
+    return (other instanceof Symbol && (this.name === other.name));
 };
 
 exports.Symbol = Symbol;
 
 var Lambda = function (signature, body, env) {
-    this.type = "Lambda";
     this.signature = signature;
     this.body = body;
     this.env = env;
     return this;
 };
 
+Lambda.prototype.toString = function () {
+    return "[Lambda]";
+};
+
 exports.Lambda = Lambda;
 
 var Environment = function () {
-    this.type = "Environment";
     this.contents = {};
     return this;
 };
@@ -59,6 +60,10 @@ Environment.prototype.extend = function () {
     var subenv = new Environment();
     subenv.parent = this;
     return subenv;
+};
+
+Environment.prototype.toString = function () {
+    return "[Environment { contents: " + this.contents + " }]";
 };
 
 exports.Environment = Environment;
