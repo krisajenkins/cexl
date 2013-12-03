@@ -7,6 +7,8 @@ var parse	= require('../build/reader').parser.parse;
 var evaluate	= require('../src/evaluator').evaluate;
 var make_root_environment = require('../src/types').make_root_environment;
 
+// TODO We can't yet handle multiline inputs.
+// Node passes the first line immediately when we press return.
 repl.start({
     eval: function (command, context, filename, callback) {
 	var parsed, result;
