@@ -7,7 +7,6 @@
     "test": "test"
   },
   "dependencies": {
-    "mori": "~0.2.4"
   },
   "devDependencies": {
     "mocha": "~1.14.0",
