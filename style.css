@@ -1,0 +1,19 @@
+.reveal pre {
+    white-space: pre-wrap;  
+
+    box-shadow: none;
+    border-left: solid 2px #222;
+    padding-left: 10px;
+}
+
+.reveal .example {
+    color: #f9f426;
+
+    box-shadow: none;
+    border-left: solid 2px #222;
+    padding-left: 10px;
+}
+
+.org-ul {
+    width: 80%;
+}

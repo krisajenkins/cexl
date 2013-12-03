@@ -1,0 +1,16 @@
+(+ 5 4)
+
+(* (+ 1 2) 5)
+
+(def foo (fn (x y) (* x (+ y y))))
+
+(foo 2 4)
+
+(fn (x) (fn () (+ 1 x)))
+
+(def inc (fn (x) (+ 1 x)))
+(def map (fn (f coll) (if coll (cons (f (first coll)) (map f (rest coll))))))
+(map inc (map inc (quote (1 2 3 4 5))))
+
+(def reduce (fn (f acc coll) (if coll (reduce f (f acc (first coll)) (rest coll)) acc)))
+(reduce + 0 (quote (1 2 3 4 5)))

@@ -1,0 +1,51 @@
+#+OPTIONS: toc:nil num:nil
+#+OPTIONS: reveal_history:t
+#+OPTIONS: org-html-indent: nil
+#+REVEAL_THEME: beige
+#+REVEAL_EXTRA_CSS: style.css
+#+AUTHOR:
+#+EMAIL: @krisajenkins
+#+DATE:
+
+* Setup 														   :noexport:
+#+BEGIN_SRC node :session demo :tangle src/org.js
+/*global exports: true*/
+"use strict";
+#+END_SRC
+
+#+RESULTS:
+| 'use strict' |
+|            3 |
+
+* Parser							   :noexport:
+#+BEGIN_SRC pegjs
+
+#+END_SRC
+* Self-evaluating
+** What is a five?
+** TODO Covers
+- Numbers
+- Booleans
+- Strings
+- nil
+
+#+BEGIN_SRC node :session demo :tangle src/org.js
+  var evaluate = function (expr, env) {
+      return expr + env;
+  };
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_SRC node :session demo :tangle src/org.js
+  (function () {
+      return 1 + 2;
+  }())
+  
+  evaluate(14,5);
+#+END_SRC
+
+#+RESULTS:
+|  3 |
+| 19 |
+
