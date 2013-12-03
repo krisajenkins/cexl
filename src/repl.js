@@ -13,9 +13,12 @@ repl.start({
     eval: function (command, context, filename, callback) {
 	var parsed, result;
 
-	parsed = parse(command)[0];
-	result = evaluate(parsed, context.env);
-
-	callback(null, result);
+	try {
+	    parsed = parse(command)[0];
+	    result = evaluate(parsed, context.env);
+	    callback(null, result);
+	} catch (e) {
+	    callback(null, e);
+	}
     }
 }).context.env = make_root_environment();
