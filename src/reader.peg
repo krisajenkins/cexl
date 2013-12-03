@@ -6,7 +6,7 @@ start = expr
 
 expr = whitespace* expr:( atom / list ) whitespace* { return expr; }
 
-whitespace = ' ' / '	' / '\n'
+whitespace = [ \t\n]
 
 atom = integer / boolean / string / nil / symbol
 

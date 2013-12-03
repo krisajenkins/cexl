@@ -48,5 +48,9 @@ describe('reader', function () {
     it('Whitespace', function () {
 	assert.deepEqual(parse(" ( 1	 \n2 ) "), [1, 2]);
 	assert.deepEqual(parse("5\n"), 5);
+	assert.deepEqual(
+	    parse("(fn (x)\n\t(+ 1 x)) "),
+	    [new Symbol("fn"), [new Symbol("x")], [new Symbol("+"), 1, new Symbol("x")]]
+	);
     });
 });
