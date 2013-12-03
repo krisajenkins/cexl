@@ -46,7 +46,7 @@ evaluate.def = function (expr, env) {
 
 	env.set(name, value);
 
-	return expr;
+	return name;
 };
 
 evaluate.if = function (expr, env) {
