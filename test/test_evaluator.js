@@ -171,3 +171,13 @@ describe('List manipulation', function () {
 	assert.deepEqual(evaluate(parse("(cons 1 nil)"), env), [1]);
     });
 });
+
+describe('Some real-world cases', function () {
+    it('equals', function () {
+	var env = make_root_environment();
+	assert.deepEqual(evaluate(parse("(= 1 1)"), env), new Symbol("true"));
+	assert.deepEqual(evaluate(parse("(= 1 0)"), env), new Symbol("false"));
+	assert.deepEqual(evaluate(parse("(= 10 (+ 3 7) (* 2 5))"), env), new Symbol("true"));
+	assert.deepEqual(evaluate(parse("(= false false)"), env), new Symbol("true"));
+    });
+});

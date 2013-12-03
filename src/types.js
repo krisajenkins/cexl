@@ -2,6 +2,7 @@
 "use strict";
 
 var assert = require('assert');
+var deep_equal = require('deep-equal');
 
 var Symbol = function (name) {
     this.name = name;
@@ -115,6 +116,18 @@ var make_root_environment = function () {
 	var new_list = list.slice(0);
 	new_list.unshift(item);
 	return new_list;
+    });
+
+    root.set(new Symbol('='), function equal (other) {
+	var args = Array.prototype.slice.call(arguments, 0);
+	if (args.length <= 1) {
+	    return new Symbol("true");
+	}
+	if (!deep_equal(args[0], args[1])) {
+	    return new Symbol("false");
+	}
+
+	return equal(args.slice(0));
     });
 
     return root;
