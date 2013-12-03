@@ -8,7 +8,7 @@ module.exports = function (grunt) {
 	peg: {
 	    build: {
 		src: "src/reader.peg",
-		dest: "build/reader.js",
+		dest: "lib/reader.js",
 		options: {
 		    exportVar: "exports.parser",
 		    trackLineAndColumn: true
@@ -23,6 +23,16 @@ module.exports = function (grunt) {
 		src: ['test/**/*.js'],
 	    }
 	},
+	copy: {
+	    build: {
+		files: [{
+		    expand: true,
+		    cwd: 'src/',
+		    src: '**/*.js',
+		    dest: 'lib/'
+		}]
+	    }
+	}
     });
 
     // Load plugins.
@@ -32,6 +42,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-peg');
 
     // Default task(s).
-    grunt.registerTask('test', ['peg', 'cafemocha']);
-    grunt.registerTask('default', ['test']);
+    grunt.registerTask('build', ['peg', 'copy', 'cafemocha']);
+    grunt.registerTask('default', ['build']);
 };

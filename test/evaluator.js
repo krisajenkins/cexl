@@ -2,12 +2,13 @@
 "use strict";
 
 var assert	= require('assert');
-var parse	= require('../build/reader').parser.parse;
-var evaluate	= require('../src/evaluator').evaluate;
 
-var Symbol	= require('../src/types').Symbol;
-var Environment = require('../src/types').Environment;
-var make_root_environment = require('../src/types').make_root_environment;
+var parse	= require('../lib/reader').parser.parse;
+var evaluate	= require('../lib/evaluator').evaluate;
+var types	= require('../lib/types');
+var Symbol	= types.Symbol;
+var Environment = types.Environment;
+var make_root_environment = types.make_root_environment;
 
 describe('self-evaluating', function () {
     it('Evaluates numbers', function () {

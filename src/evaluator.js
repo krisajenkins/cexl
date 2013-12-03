@@ -1,9 +1,10 @@
 /*global exports: true*/
 "use strict";
 
-var is_array	= require('./types').is_array;
-var Symbol	= require('./types').Symbol;
-var Lambda	= require('./types').Lambda;
+var types	= require('./types');
+var is_array	= types.is_array;
+var Symbol	= types.Symbol;
+var Lambda	= types.Lambda;
 
 var evaluate;
 

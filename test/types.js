@@ -3,8 +3,9 @@
 
 var assert	= require('assert');
 
-var Symbol	= require('../src/types').Symbol;
-var Environment = require('../src/types').Environment;
+var types	= require('../lib/types');
+var Symbol	= types.Symbol;
+var Environment = types.Environment;
 
 describe('Environment', function () {
     it('Ensures subenv writes shadow correctly', function () {

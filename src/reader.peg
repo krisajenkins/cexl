@@ -1,5 +1,5 @@
 {
-  var Symbol = require('../src/types').Symbol;
+  var Symbol = require('./types').Symbol;
 }
 
 start = expr

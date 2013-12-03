@@ -2,8 +2,8 @@
 "use strict";
 
 var assert	= require('assert');
-var parse	= require('../build/reader').parser.parse;
-var Symbol	= require('../src/types').Symbol;
+var parse	= require('../lib/reader').parser.parse;
+var Symbol	= require('../lib/types').Symbol;
 
 describe('reader', function () {
     it('Numbers', function () {
