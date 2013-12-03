@@ -155,3 +155,19 @@ describe('quote', function () {
 	assert.deepEqual(evaluate(parse("(quote (+ a 1))"), env), [new Symbol("+"), new Symbol("a"), 1]);
     });
 });
+
+describe('List manipulation', function () {
+    it('Supplies list library functions', function () {
+	var env = make_root_environment();
+	evaluate(parse("(def a (quote (1 2 3)))"), env);
+	assert.deepEqual(evaluate(parse("(first a)"), env), 1);
+	assert.deepEqual(evaluate(parse("(rest a)"), env), [2, 3]);
+	assert.deepEqual(evaluate(parse("(cons 0 a)"), env), [0, 1, 2, 3]);
+	assert.deepEqual(evaluate(parse("a"), env), [1, 2, 3]);
+    });
+    it('Handles empty lists', function () {
+	var env = make_root_environment();
+	assert.deepEqual(evaluate(parse("(rest (quote (1)))"), env), new Symbol("nil"));
+	assert.deepEqual(evaluate(parse("(cons 1 nil)"), env), [1]);
+    });
+});

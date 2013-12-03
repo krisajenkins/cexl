@@ -95,6 +95,28 @@ var make_root_environment = function () {
 	);
     });
 
+    root.set(new Symbol('first'), function (list) {
+	return list[0];
+    });
+
+    root.set(new Symbol('rest'), function (list) {
+	if (list.length === 1) {
+	    return new Symbol("nil");
+	}
+
+	return list.slice(1);
+    });
+
+    root.set(new Symbol('cons'), function (item, list) {
+	if (new Symbol("nil").equal(list)) {
+	    return [item];
+	}
+
+	var new_list = list.slice(0);
+	new_list.unshift(item);
+	return new_list;
+    });
+
     return root;
 };
 exports.make_root_environment = make_root_environment;
