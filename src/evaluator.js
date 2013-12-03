@@ -25,6 +25,7 @@ var evaluate_def = function (expr, env) {
 	value = evaluate(expr[2], env);
 
     env.set(name, value);
+
     return expr;
 };
 
