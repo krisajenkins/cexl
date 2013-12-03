@@ -4,66 +4,66 @@
 var assert = require('assert');
 
 var Symbol = function (name) {
-    this.name = name;
-    return this;
+	this.name = name;
+	return this;
 };
 
 Symbol.prototype.toString = function () {
-    return "[Symbol { name: " + this.name + " }]";
+	return "[Symbol { name: " + this.name + " }]";
 };
 
 Symbol.prototype.equal = function (other) {
-    return (other instanceof Symbol && (this.name === other.name));
+	return (other instanceof Symbol && (this.name === other.name));
 };
 
 exports.Symbol = Symbol;
 
 var Lambda = function (signature, body, env) {
-    this.signature = signature;
-    this.body = body;
-    this.env = env;
-    return this;
+	this.signature = signature;
+	this.body = body;
+	this.env = env;
+	return this;
 };
 
 Lambda.prototype.toString = function () {
-    return "[Lambda]";
+	return "[Lambda]";
 };
 
 exports.Lambda = Lambda;
 
 var Environment = function () {
-    this.contents = {};
-    return this;
+	this.contents = {};
+	return this;
 };
 
 Environment.prototype.set = function (symbol, value) {
-    assert.ok(symbol instanceof Symbol, "First argument is not a Symbol!");
-    this.contents[symbol.name] = value;
+	assert.ok(symbol instanceof Symbol, "First argument is not a Symbol!");
+	this.contents[symbol.name] = value;
 };
 
 Environment.prototype.get = function (symbol) {
-    assert.ok(symbol instanceof Symbol, "First argument is not a Symbol!");
+	assert.ok(symbol instanceof Symbol, "First argument is not a Symbol!");
 
-    var value = this.contents[symbol.name];
-    if (typeof value !== 'undefined') {
-	return value;
-    }
+	var value = this.contents[symbol.name];
+	if (typeof value !== 'undefined') {
+		return value;
+	}
 
-    if (typeof this.parent !== 'undefined') {
-	return this.parent.get(symbol);
-    }
+	if (typeof this.parent !== 'undefined') {
+		return this.parent.get(symbol);
+	}
 
-    throw new Error(symbol.toString() + " is not defined.");
+	throw new Error(symbol.toString() + " is not defined.");
 };
 
 Environment.prototype.extend = function () {
-    var subenv = new Environment();
-    subenv.parent = this;
-    return subenv;
+	var subenv = new Environment();
+	subenv.parent = this;
+	return subenv;
 };
 
 Environment.prototype.toString = function () {
-    return "[Environment { contents: " + this.contents + " }]";
+	return "[Environment { contents: " + this.contents + " }]";
 };
 
 exports.Environment = Environment;
@@ -71,6 +71,6 @@ exports.Environment = Environment;
 // Q. How do you *reliably* tell if something is a JavaScript array?
 // A. Ha, ha, ha, ha, ha! Are you kidding?
 var is_array = function (object) {
-    return Object.prototype.toString.call(object) === "[object Array]";
+	return Object.prototype.toString.call(object) === "[object Array]";
 };
 exports.is_array = is_array;
