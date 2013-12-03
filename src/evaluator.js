@@ -70,6 +70,14 @@ var evaluate_fn = function (expr, env) {
     return new Lambda(signature, body, local_env);
 };
 
+var evaluate_quote = function (expr, env) {
+    if (expr.length !== 2) {
+	throw new Error("Wrong number of args to quote.");
+    }
+
+    return expr[1];
+};
+
 var apply_function = function (expr, env) {
     var evaluated_subexprs, f, args, subenv, i;
 
@@ -131,6 +139,10 @@ evaluate = function (expr, env) {
 
 	if (new Symbol("fn").equal(expr[0])) {
 	    return evaluate_fn(expr, env);
+	}
+
+	if (new Symbol("quote").equal(expr[0])) {
+	    return evaluate_quote(expr, env);
 	}
 
 	return apply_function(expr, env);

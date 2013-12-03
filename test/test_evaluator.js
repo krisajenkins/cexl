@@ -142,3 +142,16 @@ describe('nil handling', function () {
 	);
     });
 });
+
+describe('quote', function () {
+    it('Quotes atoms', function () {
+	var env = make_root_environment();
+	evaluate(parse("(def a 5)"), env);
+	assert.deepEqual(evaluate(parse("(quote a)"), env), new Symbol("a"));
+    });
+    it('Quotes lists', function () {
+	var env = make_root_environment();
+	evaluate(parse("(def a 5)"), env);
+	assert.deepEqual(evaluate(parse("(quote (+ a 1))"), env), [new Symbol("+"), new Symbol("a"), 1]);
+    });
+});
