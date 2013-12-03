@@ -6,17 +6,37 @@ var is_array	= types.is_array;
 var Symbol		= types.Symbol;
 var Lambda		= types.Lambda;
 
-var evaluate;
+var evaluate = function (expr, env) {
+	if (
+		typeof expr === "number"
+			||
+			typeof expr === "string"
+	) {
+		return expr;
+	}
 
-var evaluate_self_evaluating = function (expr, env) {
-	return expr;
+	if (expr instanceof Symbol) {
+		return env.get(expr);
+	}
+
+	if (is_array(expr)) {
+		var head = expr[0];
+
+		if (
+			head instanceof Symbol
+				&&
+				evaluate.hasOwnProperty(head.name)
+		) {
+			return evaluate[head.name](expr, env);
+		}
+
+		return apply_function(expr, env);
+	}
+
+	throw new Error("Cannot evaluate expression: '" + expr + "'");
 };
 
-var evaluate_symbol = function (expr, env) {
-	return env.get(expr);
-};
-
-var evaluate_def = function (expr, env) {
+evaluate.def = function (expr, env) {
 	if (expr.length !== 3) {
 		throw new Error("Wrong number of args to def.");
 	}
@@ -29,7 +49,7 @@ var evaluate_def = function (expr, env) {
 	return expr;
 };
 
-var evaluate_if = function (expr, env) {
+evaluate.if = function (expr, env) {
 	var test_expr, then_expr, else_expr, test_value;
 
 	if (
@@ -57,7 +77,7 @@ var evaluate_if = function (expr, env) {
 	return evaluate(else_expr, env);
 };
 
-var evaluate_fn = function (expr, env) {
+evaluate.fn = function (expr, env) {
 	var signature, body, local_env;
 
 	if (expr.length !== 3) {
@@ -71,7 +91,7 @@ var evaluate_fn = function (expr, env) {
 	return new Lambda(signature, body, local_env);
 };
 
-var evaluate_quote = function (expr, env) {
+evaluate.quote = function (expr, env) {
 	if (expr.length !== 2) {
 		throw new Error("Wrong number of args to quote.");
 	}
@@ -112,44 +132,6 @@ var apply_function = function (expr, env) {
 	}
 
 	throw new Error("Not a function.");
-};
-
-evaluate = function (expr, env) {
-	if (
-		typeof expr === "number"
-			||
-			typeof expr === "boolean"
-			||
-			typeof expr === "string"
-	) {
-		return evaluate_self_evaluating(expr, env);
-	}
-
-	if (expr instanceof Symbol) {
-		return evaluate_symbol(expr, env);
-	}
-
-	if (is_array(expr)) {
-		if (new Symbol("def").equal(expr[0])) {
-			return evaluate_def(expr, env);
-		}
-
-		if (new Symbol("if").equal(expr[0])) {
-			return evaluate_if(expr, env);
-		}
-
-		if (new Symbol("fn").equal(expr[0])) {
-			return evaluate_fn(expr, env);
-		}
-
-		if (new Symbol("quote").equal(expr[0])) {
-			return evaluate_quote(expr, env);
-		}
-
-		return apply_function(expr, env);
-	}
-
-	throw new Error("Cannot evaluate expression: '" + expr + "'");
 };
 
 exports.evaluate = evaluate;
