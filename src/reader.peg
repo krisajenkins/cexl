@@ -2,33 +2,35 @@
   var Symbol = require('./types').Symbol;
 }
 
-start = expr
-
-expr = whitespace* expr:( atom / list ) whitespace* { return expr; }
+expr = whitespace* expr:( atom / list ) whitespace* {
+  return expr;
+}
 
 whitespace = [ \t\n]
 
 atom = integer / boolean / string / nil / symbol
 
-integer "integer"
-  = sign:'-'? digits:[0-9]+ {
-    var combined = digits.slice(0);
-    combined.unshift(sign);
-    return parseFloat(combined.join(""), 10);
- }
+integer "integer" = sign:'-'? digits:[0-9]+ {
+  var combined = digits.slice(0);
+  combined.unshift(sign);
+  return parseFloat(combined.join(""), 10);
+}
   
-boolean "boolean"
-  = "true" { return new Symbol('true'); }
-  / "false" { return new Symbol('false'); }
+boolean "boolean" = "true"  { return new Symbol('true'); }
+                  / "false" { return new Symbol('false'); }
 
-nil "nil"
-  = "nil" { return new Symbol('nil'); }
+nil "nil" = "nil" {
+  return new Symbol('nil');
+}
 
-string "string"
-  = '"' content:[^"]* '"' { return content.join(""); }
+string "string" = '"' content:[^"]* '"' {
+  return content.join("");
+}
 
-symbol "symbol"
-  = chars:[^ ()]+ { return new Symbol(chars.join("")); }
+symbol "symbol" = chars:[^ ()]+ {
+  return new Symbol(chars.join(""));
+}
   
-list "list"
-  = '(' exprs:expr* ')' { return exprs; }
+list "list" = '(' exprs:expr* ')' {
+  return exprs;
+}
