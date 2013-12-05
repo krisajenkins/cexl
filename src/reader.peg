@@ -2,8 +2,12 @@
   var Symbol = require('./types').Symbol;
 }
 
-expr = whitespace* expr:( atom / list ) whitespace* {
+expr = whitespace* expr:( list / atom ) whitespace* {
   return expr;
+}
+
+list "list" = '(' exprs:expr* ')' {
+  return exprs;
 }
 
 whitespace = [ \t\n]
@@ -22,8 +26,4 @@ string "string" = '"' content:[^"]* '"' {
 
 symbol "symbol" = chars:[^ \t\n()]+ {
   return new Symbol(chars.join(""));
-}
-  
-list "list" = '(' exprs:expr* ')' {
-  return exprs;
 }
