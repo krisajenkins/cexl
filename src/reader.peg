@@ -8,7 +8,7 @@ expr = whitespace* expr:( atom / list ) whitespace* {
 
 whitespace = [ \t\n]
 
-atom = integer / boolean / string / nil / symbol
+atom = integer / string / symbol
 
 integer "integer" = sign:'-'? digits:[0-9]+ {
   var combined = digits.slice(0);
@@ -16,13 +16,6 @@ integer "integer" = sign:'-'? digits:[0-9]+ {
   return parseFloat(combined.join(""), 10);
 }
   
-boolean "boolean" = "true"  { return new Symbol('true'); }
-                  / "false" { return new Symbol('false'); }
-
-nil "nil" = "nil" {
-  return new Symbol('nil');
-}
-
 string "string" = '"' content:[^"]* '"' {
   return content.join("");
 }
