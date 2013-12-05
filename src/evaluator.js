@@ -2,7 +2,7 @@
 "use strict";
 
 var types		= require('./types');
-var is_array	= types.is_array;
+var is_list		= types.is_list;
 var Symbol		= types.Symbol;
 var Lambda		= types.Lambda;
 
@@ -14,7 +14,7 @@ var evaluate = function (expr, env) {
 		return env.get(expr);
 	}
 
-	if (is_array(expr)) {
+	if (is_list(expr)) {
 		var head = expr[0];
 
 		if (

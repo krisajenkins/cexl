@@ -70,7 +70,7 @@ exports.Environment = Environment;
 
 // Q. How do you *reliably* tell if something is a JavaScript array?
 // A. Ha, ha, ha, ha, ha! Are you kidding?
-var is_array = function (object) {
+var is_list = function (object) {
 	return Object.prototype.toString.call(object) === "[object Array]";
 };
-exports.is_array = is_array;
+exports.is_list = is_list;
