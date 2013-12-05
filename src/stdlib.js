@@ -14,23 +14,25 @@ var make_root_environment = function () {
 	root.set(new Symbol('false'),	 new Symbol('false'));
 
 	root.set(new Symbol('+'), function () {
-		var args = Array.prototype.slice.call(arguments, 0);
-		return args.reduce(
-			function (previous_value, current_value){
-				return previous_value + current_value;
-			},
-			0
-		);
+		var i,
+			total = 0;
+
+		for (i = 0; i < arguments.length; i++) {
+			total += arguments[i];
+		}
+
+		return total;
 	});
 
 	root.set(new Symbol('*'), function () {
-		var args = Array.prototype.slice.call(arguments, 0);
-		return args.reduce(
-			function (previous_value, current_value){
-				return previous_value * current_value;
-			},
-			1
-		);
+		var i,
+			total = 1;
+
+		for (i = 0; i < arguments.length; i++) {
+			total *= arguments[i];
+		}
+
+		return total;
 	});
 
 	root.set(new Symbol('first'), function (list) {

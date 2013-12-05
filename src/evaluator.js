@@ -88,11 +88,10 @@ evaluate.quote = function (expr, env) {
 var apply_function = function (expr, env) {
 	var evaluated_subexprs, f, args, subenv, i;
 
-	evaluated_subexprs = expr.map(
-		function (subexpr) {
-			return evaluate(subexpr, env);
-		}
-	);
+	evaluated_subexprs = [];
+	for (i = 0; i < expr.length; i++) {
+		evaluated_subexprs[i] = evaluate(expr[i], env);
+	}
 
 	f = evaluated_subexprs[0];
 	args = evaluated_subexprs.slice(1);

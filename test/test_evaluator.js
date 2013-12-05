@@ -100,8 +100,8 @@ describe('Function invocation.', function () {
 
 	it('Handles simple primitives.', function () {
 		var env = make_root_environment();
-		assert.deepEqual(evaluate(parse("(+ 1 2)"), env), 3);
-		assert.deepEqual(evaluate(parse("(* 1 2)"), env), 2);
+		assert.deepEqual(evaluate(parse("(+ 1 2 3 4)"), env), 10);
+		assert.deepEqual(evaluate(parse("(* 1 2 3 4)"), env), 24);
 	});
 
 	it('Handles nested primitives.', function () {
