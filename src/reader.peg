@@ -20,7 +20,7 @@ string "string" = '"' content:[^"]* '"' {
   return content.join("");
 }
 
-symbol "symbol" = chars:[^ ()]+ {
+symbol "symbol" = chars:[^ \t\n()]+ {
   return new Symbol(chars.join(""));
 }
   
