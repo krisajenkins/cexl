@@ -3,6 +3,28 @@
 
 var assert = require('assert');
 
+// Q. How do you *reliably* tell if something is a JavaScript array?
+// A. Ha, ha, ha, ha, ha! Are you kidding?
+var is_list = function (object) {
+	return Object.prototype.toString.call(object) === "[object Array]";
+};
+exports.is_list = is_list;
+
+var first = function (list) {
+	return list[0];
+};
+exports.first = first;
+
+var second = function (list) {
+	return list[1];
+};
+exports.second = second;
+
+var rest = function (list) {
+	return list.slice(1);
+};
+exports.rest = rest;
+
 var Symbol = function (name) {
 	this.name = name;
 	return this;
@@ -67,10 +89,3 @@ Environment.prototype.toString = function () {
 };
 
 exports.Environment = Environment;
-
-// Q. How do you *reliably* tell if something is a JavaScript array?
-// A. Ha, ha, ha, ha, ha! Are you kidding?
-var is_list = function (object) {
-	return Object.prototype.toString.call(object) === "[object Array]";
-};
-exports.is_list = is_list;

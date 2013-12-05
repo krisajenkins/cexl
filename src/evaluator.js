@@ -3,6 +3,8 @@
 
 var types		= require('./types');
 var is_list		= types.is_list;
+var first		= types.first;
+var rest		= types.rest;
 var Symbol		= types.Symbol;
 var Lambda		= types.Lambda;
 
@@ -15,7 +17,7 @@ var evaluate = function (expr, env) {
 	}
 
 	if (is_list(expr)) {
-		var head = expr[0];
+		var head = first(expr);
 
 		if (
 			head instanceof Symbol
@@ -93,8 +95,8 @@ var apply_function = function (expr, env) {
 		evaluated_subexprs[i] = evaluate(expr[i], env);
 	}
 
-	f = evaluated_subexprs[0];
-	args = evaluated_subexprs.slice(1);
+	f		= first(evaluated_subexprs);
+	args	= rest(evaluated_subexprs);
 
 	if (f instanceof Lambda) {
 		if (f.signature.length !== args.length) {

@@ -3,8 +3,12 @@
 
 var deep_equal = require('deep-equal');
 
-var Environment = require('./types').Environment;
-var Symbol = require('./types').Symbol;
+var types		= require('./types');
+var Environment = types.Environment;
+var Symbol		= types.Symbol;
+var first		= types.first;
+var second		= types.second;
+var rest		= types.rest;
 
 var make_root_environment = function () {
 	var root = new Environment();
@@ -36,7 +40,7 @@ var make_root_environment = function () {
 	});
 
 	root.set(new Symbol('first'), function (list) {
-		return list[0];
+		return first(list);
 	});
 
 	root.set(new Symbol('rest'), function (list) {
@@ -62,11 +66,11 @@ var make_root_environment = function () {
 		if (args.length <= 1) {
 			return new Symbol("true");
 		}
-		if (!deep_equal(args[0], args[1])) {
+		if (!deep_equal(first(args), second(args))) {
 			return new Symbol("false");
 		}
 
-		return equal(args.slice(0));
+		return equal(rest(args));
 	});
 
 	return root;
