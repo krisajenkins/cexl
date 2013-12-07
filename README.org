@@ -1,0 +1,15 @@
+* Clojure Exchange Lisp
+
+This is a Lisp, written in JavaScript, for my Clojure Exchange 2013
+presentation: [[http://skillsmatter.com/podcast/java-jee/the-most-fundamental-idea-in-programming][The Most Fundamental Idea In Programming.]]
+
+All the really interesting stuff is in =src/evaluator.js=, so look there
+if you want something to read.
+
+To try it out, call:
+
+#+BEGIN_SRC sh
+npm install
+grunt
+node lib/jrepl.js
+#+END_SRC
